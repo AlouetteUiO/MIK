@@ -80,9 +80,9 @@ for ghgfile in os.listdir(directory):
 
 # add dataframe to leading dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df_old = pd.read_csv("02_df.csv", index_col='datetime', dtype=dtype_options)
+df_old = pd.read_csv("data/02_df.csv", index_col='datetime', dtype=dtype_options)
 df_old.index = pd.to_datetime(df_old.index, format='ISO8601')
 merged_df = pd.merge(df_old, df_total, left_index=True, right_index=True, how='inner')
 
 # save dataframe
-merged_df.to_csv("03_df.csv", index=True, decimal='.', sep=',')
+merged_df.to_csv("data/03_df.csv", index=True, decimal='.', sep=',')

@@ -13,7 +13,7 @@ Correct the windspeed data from the drone
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("04_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/04_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # select hover flights based on field notes (field when the drone was hovering next to the eddy-covariance tower)
@@ -79,4 +79,4 @@ if not (df_hover['WEATHER.windSpeed [m/s]'].isnull().any()) and not (df_hover['P
     plt.savefig("winddirection_supplement_article.png", dpi=300)
 
     # save dataframe
-    df.to_csv("05_df.csv", index=True, decimal='.', sep=',')
+    df.to_csv("data/05_df.csv", index=True, decimal='.', sep=',')

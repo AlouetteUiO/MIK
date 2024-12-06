@@ -12,7 +12,7 @@ Add surface altitude from DEM.
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("06_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/06_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # open dataframe, this dataframe includes SurfaceLayerAltitude information from the DEM at the drone locations, available from zenodo
@@ -31,4 +31,4 @@ df_DEM.rename(columns={'SurfaceLayerAltitude': 'PROC.LiDAR.surfaceAltitude'}, in
 # merge and save the dataframes
 merged_df = pd.merge(df, df_DEM['PROC.LiDAR.surfaceAltitude'], left_index=True, right_index=True, how='inner')
 merged_df = merged_df[~merged_df.index.duplicated()]
-merged_df.to_csv("07_df.csv", index=True, decimal='.', sep=',')
+merged_df.to_csv("data/07_df.csv", index=True, decimal='.', sep=',')

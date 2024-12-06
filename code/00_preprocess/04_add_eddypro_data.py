@@ -60,7 +60,7 @@ df_total = df_total.sort_index()
 
 # add dataframe to leading dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df_old = pd.read_csv("03_df.csv", index_col='datetime', dtype=dtype_options)
+df_old = pd.read_csv("data/03_df.csv", index_col='datetime', dtype=dtype_options)
 df_old.index = pd.to_datetime(df_old.index, format='ISO8601')
 
 # merge keeping the index of both dataframes
@@ -71,4 +71,4 @@ df_merged_filled = df_merged.copy()
 df_merged_filled[new_column_names[2:]] = df_merged[new_column_names[2:]].bfill()
 
 # save dataframe
-df_merged_filled.to_csv("04_df.csv", index=True, decimal='.', sep=',')
+df_merged_filled.to_csv("data/04_df.csv", index=True, decimal='.', sep=',')

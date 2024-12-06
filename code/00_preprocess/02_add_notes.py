@@ -6,7 +6,7 @@ from datetime import date, time, datetime
 Add field notes.
 """
 
-df = pd.read_csv("01_df.csv", index_col='datetime')
+df = pd.read_csv("data/01_df.csv", index_col='datetime')
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # open dataframe with notes
@@ -43,4 +43,4 @@ for index, row in df_notes.iterrows():
     df.loc[(df.index>row.datetime_start)&(df.index<row.datetime_end), 'NOTE.amount_int'] = amount_int
 
 # save dataframe
-df.to_csv("02_df.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/02_df.csv", index=True, decimal='.', sep=',')

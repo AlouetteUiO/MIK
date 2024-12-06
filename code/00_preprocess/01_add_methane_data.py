@@ -45,11 +45,11 @@ df = df.sort_index()
 
 # add to leading dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str'}
-df_drone = pd.read_csv("00_df.csv", index_col='datetime', dtype=dtype_options)
+df_drone = pd.read_csv("data/00_df.csv", index_col='datetime', dtype=dtype_options)
 df_drone.index = pd.to_datetime(df_drone.index, format='ISO8601')
 
 df.index = pd.to_datetime(df.index, format='ISO8601')
 df = pd.merge(df, df_drone, on='datetime', how='right') # keep the index of the dji data
 
 # save dataframe
-df.to_csv("01_df.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/01_df.csv", index=True, decimal='.', sep=',')

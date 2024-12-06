@@ -12,7 +12,7 @@ No data is saved in the df.
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("08_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/08_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # make a quick plot to see the variability in the methane concentration

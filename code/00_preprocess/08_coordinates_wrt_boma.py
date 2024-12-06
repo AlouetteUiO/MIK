@@ -15,7 +15,7 @@ Compute coordinates of the drone with respect to the center of the boma.
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("07_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/07_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # make geopandas dataframe
@@ -75,5 +75,5 @@ df['PROC.h_drone_base'] = df['RTK.aircraftHeight [m]'] + gdf_boma.loc['BASE','PR
 df['PROC.z_drone_base'] = df['RTK.aircraftHeight [m]'] + gdf_boma.loc['BASE','PROC.LiDAR.surfaceAltitude'] - gdf_boma.loc['C','PROC.LiDAR.surfaceAltitude']
 
 # save df and gdf_boma
-df.to_csv("08_df.csv", index=True, decimal='.', sep=',')
-gdf_boma.to_csv("gdf_boma.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/08_df.csv", index=True, decimal='.', sep=',')
+gdf_boma.to_csv("data/gdf_boma.csv", index=True, decimal='.', sep=',')

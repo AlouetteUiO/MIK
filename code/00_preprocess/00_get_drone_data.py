@@ -76,4 +76,4 @@ df_resampled = pd.merge(df_resample_numeric, df_resample_string, on='datetime', 
 df_resampled_cleaned = df_resampled.dropna(how='all')
 
 # save dataframe
-df_resampled_cleaned.to_csv("00_df.csv", index=True, decimal='.', sep=',')  # change path location for storing leading dataframe
+df_resampled_cleaned.to_csv("data/00_df.csv", index=True, decimal='.', sep=',')  # change path location for storing leading dataframe

@@ -12,7 +12,7 @@ Use MOST parameterizations found in
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("10_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/10_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 d = 0.1  # displacement height [m]
@@ -61,4 +61,4 @@ plt.savefig(f"windspeed_MOST_supplement_article.png", dpi=300)
 plt.close()
 
 # save to df
-df.to_csv("11_df.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/11_df.csv", index=True, decimal='.', sep=',')

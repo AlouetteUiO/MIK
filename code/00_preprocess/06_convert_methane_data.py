@@ -12,7 +12,7 @@ Convert the CH4 concentration from ppm to mg/m3
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("05_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/05_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 def ppm_to_conc(ppm, temp, pressure):
@@ -41,4 +41,4 @@ def ppm_to_conc(ppm, temp, pressure):
 df['PROC.CH4 [mg/m3]'] = ppm_to_conc(df['AERIS.CH4 [ppm]'], df['EC.T [deg C]'], df['EC.P [kPa]'])
 
 # save dataframe
-df.to_csv("06_df.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/06_df.csv", index=True, decimal='.', sep=',')

@@ -11,7 +11,7 @@ Add estimated z_source data (average mouth height of 10 animals in each herd, ba
 
 # open dataframe
 dtype_options = {'OSD.flycState': 'str', 'OSD.flightAction': 'str', 'WEATHER.windDirection': 'str', 'NOTE.animals':'string', 'NOTE.amount':'string'}
-df = pd.read_csv("08_df.csv", index_col='datetime', dtype=dtype_options)
+df = pd.read_csv("data/08_df.csv", index_col='datetime', dtype=dtype_options)
 df.index = pd.to_datetime(df.index, format='ISO8601')
 
 # add estimated z_source data
@@ -27,4 +27,4 @@ df.loc[df['NOTE.animals'] == "pregnant does + kids", 'PROC.z_source_mean'] = 0.7
 df.loc[df['NOTE.animals'] == "lactating ewe + lambs", 'PROC.z_source_mean'] = 0.687
 
 # save dataframe
-df.to_csv("10_df.csv", index=True, decimal='.', sep=',')
+df.to_csv("data/10_df.csv", index=True, decimal='.', sep=',')
