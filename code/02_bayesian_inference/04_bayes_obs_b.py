@@ -217,7 +217,7 @@ for filename in os.listdir(directory):
                                                 [] ), axis=None)[:,np.newaxis]
 
                 weights, weights_exact, log_evidence = smoothing(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs_wind, \
-                    x_obs_batch, y_obs_batch, z_obs_batch, z_surface_batch, x_source, y_source, z_source, abs_sigma=abs_sigma, rel_sigma=0)
+                    x_obs_batch, y_obs_batch, z_obs_batch, z_surface_batch, x_source, y_source, z_source, abs_sigma=abs_sigma)
 
                 Neff = 1/(np.sum(weights**2))  # number of effective particles
 
@@ -250,7 +250,7 @@ for filename in os.listdir(directory):
                 ensemble = resampled_ensemble.copy()
                 for step in range(n_mcmc_steps):
                     print(f"mcmc step {step}")
-                    ensemble = mcmc_move(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs_wind, x_obs_batch, y_obs_batch, z_obs_batch, z_surface_batch, x_source, y_source, z_source, abs_sigma=abs_sigma, rel_sigma=0, std=bw, bounds=bounds, x=x_source, y=y_source)
+                    ensemble = mcmc_move(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs_wind, x_obs_batch, y_obs_batch, z_obs_batch, z_surface_batch, x_source, y_source, z_source, abs_sigma=abs_sigma, std=bw, bounds=bounds, x=x_source, y=y_source)
                 # print(f"posterior flux = \n{posterior[0]}")
                 
                 # plot resampled ensemble

@@ -36,7 +36,7 @@ def get_prediction(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, x_obs, 
     prediction = mu_conc # we get the rest of the prediction somewhere else
     return prediction
 
-def get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma):
+def get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma):
     """ compute the likelihood """
 
     n_particles = ensemble.shape[1]
@@ -69,8 +69,7 @@ def get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_
     residual[2,:] = abs(residual[2,:] + 180) % 360 - 180 
     assert residual.shape == (n_obs, n_particles)
 
-    # rel_sigma is 0 in our study, we only use abs_sigma
-    std = abs_sigma + rel_sigma * np.array(obs)
+    std = abs_sigma + 0 * np.array(obs)
     assert std.shape == (n_obs, 1)
     R = std**2
     assert R.shape == (n_obs, 1)
@@ -106,10 +105,10 @@ def get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_
     return weights, weigths_exact, log_z_exact
 
 
-def smoothing(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma):
+def smoothing(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma):
     """ update weights for mini-batch of data """
 
-    weights, weights_exact, log_evidence = get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma)
+    weights, weights_exact, log_evidence = get_likelihood(ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma)
 
     return weights, weights_exact, log_evidence
 
@@ -171,19 +170,19 @@ def get_reflected_ensemble(ensemble, bounds, x, y):
 
     return ensemble
 
-def mcmc_move(resampled_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma, std, bounds, x, y):
+def mcmc_move(resampled_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, std, bounds, x, y):
     """ perform one mcmc step """
 
     n_vars, n_particles = np.shape(resampled_ensemble)
 
-    current_likelihood, _, _ = get_likelihood(resampled_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma)
+    current_likelihood, _, _ = get_likelihood(resampled_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma)
 
     # jitter
     proposal_ensemble = get_proposal_ensemble(resampled_ensemble, std)
     # reflective boundaries
     proposal_ensemble = get_reflected_ensemble(proposal_ensemble, bounds, x, y)
     # get proposal likelihood
-    proposal_likelihood, _, _ = get_likelihood(proposal_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma, rel_sigma)
+    proposal_likelihood, _, _ = get_likelihood(proposal_ensemble, background_ppm, TAU, TEMPERATURE, PRESSURE, obs, x_obs, y_obs, z_obs, z_surface, x_source, y_source, z_source, abs_sigma)
 
     bounds_proposal, _, _ = get_in_bounds(proposal_ensemble, bounds, x, y)
     bounds_current, _, _ = get_in_bounds(resampled_ensemble, bounds, x, y)  
