@@ -1,6 +1,6 @@
 # Methane emission rate Inference of ruminants in Kenya (MIK)
 
-These scripts were used in the study "Inferring methane emissions from African livestock by fusing drone, tower, and satellite data" (manuscript to be submitted).
+These scripts were used in the study "Inferring methane emissions from African livestock by fusing drone, tower, and satellite data" (https://egusphere.copernicus.org/preprints/2025/egusphere-2024-3994/).
 
 The dataset will be made available here: 10.5281/zenodo.14214699.
 
